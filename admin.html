@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель VexeraDubbing</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-panel {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .admin-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1510511459019-5dda7724fd87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=10') center/cover;
+            filter: blur(5px) brightness(0.3);
+            z-index: -1;
+        }
+        
+        .password-protection {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .password-form {
+            background: rgba(26, 26, 46, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(106, 17, 203, 0.5);
+        }
+        
+        .password-form h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .password-form p {
+            margin-bottom: 25px;
+            color: #cbd5e1;
+        }
+        
+        .password-input {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        
+        .password-input input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+        }
+        
+        .password-input i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a5b4fc;
+            cursor: pointer;
+        }
+        
+        .password-strength {
+            margin-top: 10px;
+            height: 5px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+        
+        .strength-meter {
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .security-tip {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+        }
+        
+        .admin-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+        
+        .admin-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #4ade80;
+        }
+        
+        .admin-status i {
+            font-size: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        .remove-social {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 0 12px;
+        }
+        
+        .remove-social:hover {
+            background: #ff5252;
+        }
+        
+        .social-field {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Protection Overlay -->
+    <div class="password-protection" id="password-protection">
+        <div class="password-form">
+            <div class="logo" style="justify-content: center; margin-bottom: 20px;">
+                <div class="logo-icon">
+                    <i class="fas fa-microphone-alt"></i>
+                </div>
+                <div class="logo-text">VexeraDubbing</div>
+            </div>
+            
+            <h2>Защищенная админ-панель</h2>
+            <p>Пожалуйста, введите пароль для доступа к админ-панели</p>
+            
+            <form id="password-form">
+                <div class="password-input">
+                    <input type="password" id="password" placeholder="Введите пароль" autocomplete="off" required>
+                    <i class="fas fa-eye" id="toggle-password"></i>
+                </div>
+                
+                <div class="password-strength">
+                    <div class="strength-meter" id="strength-meter"></div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-lock-open"></i> Получить доступ
+                </button>
+            </form>
+            
+            <div class="security-tip">
+                <i class="fas fa-shield-alt"></i> Пароль установлен администратором сайта
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-microphone-alt"></i>
+                </div>
+                <div class="logo-text">VexeraDubbing</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> На главную</a></li>
+                    <li><a href="index.html#dubbers"><i class="fas fa-users"></i> Дабберы</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Admin Panel -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title" style="text-align: center; margin-bottom: 30px;">
+                <h2 style="font-size: 2.5rem; display: inline-block;
+                    background: linear-gradient(45deg, var(--primary), var(--secondary));
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    position: relative;">
+                    Админ-панель
+                </h2>
+            </div>
+            
+            <div class="admin-panel" id="admin-panel" style="display: none;">
+                <h3>Добавить нового даббера</h3>
+                
+                <div class="admin-controls">
+                    <div class="admin-status">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Административный доступ</span>
+                    </div>
+                    <button class="btn btn-secondary" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Выйти
+                    </button>
+                </div>
+                
+                <form id="dubber-form">
+                    <div class="form-group">
+                        <label for="dubber-name">Имя даббера</label>
+                        <input type="text" id="dubber-name" class="form-control" placeholder="Введите полное имя" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dubber-role">Роль/Специализация</label>
+                        <input type="text" id="dubber-role" class="form-control" placeholder="Например: Актер дубляжа, звукорежиссер" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dubber-bio">Описание</label>
+                        <textarea id="dubber-bio" class="form-control" placeholder="Опыт работы, специализация, достижения" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dubber-avatar">Ссылка на аватар (URL)</label>
+                        <input type="url" id="dubber-avatar" class="form-control" placeholder="https://example.com/avatar.jpg" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Социальные сети</label>
+                        <div class="social-inputs">
+                            <div class="social-field">
+                                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                    <input type="text" class="form-control social-name" placeholder="Соцсеть (VK, Telegram)" required>
+                                    <input type="url" class="form-control social-url" placeholder="Ссылка" required>
+                                    <button type="button" class="btn btn-danger remove-social"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-secondary" id="add-social-btn">
+                                <i class="fas fa-plus"></i> Добавить соцсеть
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fab fa-github"></i> Сохранить через GitHub
+                    </button>
+                </form>
+                
+                <div class="github-info">
+                    <p><i class="fab fa-github"></i> Данные сохраняются непосредственно в репозиторий GitHub</p>
+                    <p>Для работы панели необходим доступ к репозиторию команды</p>
+                </div>
+            </div>
+            
+            <div id="access-denied" style="display: none; text-align: center; padding: 50px;">
+                <i class="fas fa-ban" style="font-size: 5rem; color: #ff6b6b; margin-bottom: 20px;"></i>
+                <h3 style="font-size: 2rem; margin-bottom: 15px;">Доступ запрещен</h3>
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">У вас недостаточно прав для просмотра этой страницы</p>
+                <a href="index.html" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i> Вернуться на главную
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Пароль для доступа (в реальном проекте хранится на сервере)
+        const ADMIN_PASSWORD = "vexeradb24+1";
+        
+        // Элементы DOM
+        const passwordProtection = document.getElementById('password-protection');
+        const passwordForm = document.getElementById('password-form');
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('toggle-password');
+        const strengthMeter = document.getElementById('strength-meter');
+        const adminPanel = document.getElementById('admin-panel');
+        const accessDenied = document.getElementById('access-denied');
+        const logoutBtn = document.getElementById('logout-btn');
+        
+        // Проверка авторизации при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+            
+            if (isAuthenticated) {
+                showAdminPanel();
+            } else {
+                passwordProtection.style.display = 'flex';
+            }
+        });
+        
+        // Показать/скрыть пароль
+        togglePassword.addEventListener('click', function() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                togglePassword.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                togglePassword.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        });
+        
+        // Индикатор сложности пароля
+        passwordInput.addEventListener('input', function() {
+            const password = passwordInput.value;
+            let strength = 0;
+            
+            if (password.length > 0) strength += 25;
+            if (password.length > 6) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password)) strength += 25;
+            
+            strengthMeter.style.width = strength + '%';
+            
+            if (strength < 50) {
+                strengthMeter.style.background = '#ff6b6b';
+            } else if (strength < 75) {
+                strengthMeter.style.background = '#ffca28';
+            } else {
+                strengthMeter.style.background = '#4ade80';
+            }
+        });
+        
+        // Проверка пароля
+        passwordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (passwordInput.value === ADMIN_PASSWORD) {
+                // Успешная авторизация
+                localStorage.setItem('isAuthenticated', 'true');
+                showAdminPanel();
+                passwordProtection.style.display = 'none';
+            } else {
+                // Неверный пароль
+                passwordInput.style.borderColor = '#ff6b6b';
+                passwordInput.value = '';
+                passwordInput.placeholder = 'Неверный пароль! Попробуйте еще раз';
+                strengthMeter.style.width = '0%';
+                
+                // Анимация ошибки
+                passwordInput.animate([
+                    { transform: 'translateX(0)' },
+                    { transform: 'translateX(-10px)' },
+                    { transform: 'translateX(10px)' },
+                    { transform: 'translateX(0)' }
+                ], {
+                    duration: 500,
+                    iterations: 1
+                });
+            }
+        });
+        
+        // Показать админ-панель
+        function showAdminPanel() {
+            adminPanel.style.display = 'block';
+            initAdminPanel();
+        }
+        
+        // Выход из системы
+        logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('isAuthenticated');
+            window.location.reload();
+        });
+        
+        // Инициализация админ-панели
+        function initAdminPanel() {
+            const dubberForm = document.getElementById('dubber-form');
+            const socialContainer = document.querySelector('.social-inputs');
+            
+            // Добавление полей для соцсетей
+            document.getElementById('add-social-btn').addEventListener('click', () => {
+                const socialField = document.createElement('div');
+                socialField.className = 'social-field';
+                socialField.innerHTML = `
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <input type="text" class="form-control social-name" placeholder="Соцсеть (VK, Telegram)" required>
+                        <input type="url" class="form-control social-url" placeholder="Ссылка" required>
+                        <button type="button" class="btn btn-danger remove-social"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                socialContainer.insertBefore(socialField, document.getElementById('add-social-btn'));
+                
+                // Удаление поля
+                socialField.querySelector('.remove-social').addEventListener('click', () => {
+                    socialField.remove();
+                });
+            });
+            
+            // Удаление первого поля (если есть кнопка удаления)
+            document.querySelectorAll('.remove-social').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.social-field').remove();
+                });
+            });
+            
+            // Отправка формы
+            dubberForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Сбор данных формы
+                const dubberData = {
+                    name: document.getElementById('dubber-name').value,
+                    role: document.getElementById('dubber-role').value,
+                    bio: document.getElementById('dubber-bio').value,
+                    avatar: document.getElementById('dubber-avatar').value,
+                    socials: []
+                };
+
+                // Сбор социальных сетей
+                document.querySelectorAll('.social-field').forEach(field => {
+                    const name = field.querySelector('.social-name').value;
+                    const url = field.querySelector('.social-url').value;
+                    if (name && url) dubberData.socials.push({ name, url });
+                });
+
+                // В реальном проекте здесь будет отправка данных на GitHub API
+                // Для демо просто покажем сообщение
+                alert('Даббер успешно добавлен! В реальном приложении данные будут сохранены в GitHub.');
+                
+                // Очистка формы
+                dubberForm.reset();
+                
+                // Очистка социальных сетей
+                const socialFields = document.querySelectorAll('.social-field');
+                socialFields.forEach((field, index) => {
+                    if (index > 0) field.remove();
+                    else {
+                        // Сбрасываем первое поле
+                        field.querySelector('.social-name').value = '';
+                        field.querySelector('.social-url').value = '';
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
