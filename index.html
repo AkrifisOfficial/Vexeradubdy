@@ -3,113 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VexeraDubbing - Профессиональная озвучка</title>
-    <link rel="stylesheet" href="style.css">
+    <title>VexeraDubbing - Профессиональная озвучка аниме</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Шапка -->
     <header>
         <div class="container header-container">
             <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-microphone-alt"></i>
-                </div>
-                <div class="logo-text">VexeraDubbing</div>
+                <img src="assets/logo.png" alt="VexeraDubbing Logo">
+                <div class="logo-text">Vexera<span>Dubbing</span></div>
             </div>
             <nav>
                 <ul>
-                    <li><a href="#home"><i class="fas fa-home"></i> Главная</a></li>
-                    <li><a href="#dubbers"><i class="fas fa-users"></i> Наши дабберы</a></li>
-                    <li><a href="#join"><i class="fas fa-door-open"></i> Присоединиться</a></li>
-                    <li><a href="admin.html"><i class="fas fa-cog"></i> Админ-панель</a></li>
+                    <li><a href="#" class="active">Главная</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#dubbers">Дабберы</a></li>
+                    <li><a href="#join">Вступить</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <section class="hero" id="home">
-        <div class="container">
-            <h1>Профессиональная озвучка контента</h1>
-            <p>Команда VexeraDubbing предлагает высококачественную озвучку видео, анимации, игр и рекламных роликов с участием талантливых актеров дубляжа</p>
-            <div class="cta-buttons">
-                <a href="#dubbers" class="btn btn-primary"><i class="fas fa-users"></i> Наши дабберы</a>
-                <a href="#join" class="btn btn-secondary"><i class="fas fa-microphone-alt"></i> Присоединиться к команде</a>
-            </div>
+    <!-- Герой секция -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>VexeraDubbing</h1>
+            <p>Профессиональная озвучка аниме с любовью к деталям</p>
+            <a href="#dubbers" class="btn">Наши дабберы</a>
         </div>
     </section>
 
-    <section class="section" id="dubbers">
+    <!-- Секция "О нас" -->
+    <section id="about" class="section">
         <div class="container">
             <div class="section-title">
-                <h2>Наши Дабберы</h2>
+                <h2>О нашей команде</h2>
             </div>
-            <div class="dubbers-grid" id="dubbers-container">
-                <!-- Данные будут загружены из JSON -->
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="join">
-        <div class="container">
-            <div class="join-section">
-                <h2>Присоединиться к команде</h2>
-                <p>Если вы талантливый актер дубляжа или звукорежиссер, мы будем рады видеть вас в нашей команде!</p>
-                <div class="cta-buttons">
-                    <a href="#" class="btn btn-primary"><i class="fab fa-telegram"></i> Telegram чат</a>
-                    <a href="#" class="btn btn-primary"><i class="fab fa-discord"></i> Discord сервер</a>
-                    <a href="#" class="btn btn-secondary"><i class="fas fa-envelope"></i> Написать на почту</a>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Добро пожаловать в VexeraDubbing - команду энтузиастов, преданных искусству озвучки аниме. Наша команда была основана в 2018 году с целью создания качественного дубляжа, который передает не только смысл, но и эмоции оригинальных произведений.</p>
+                    <br>
+                    <p>Мы работаем с различными жанрами аниме: от романтики и комедий до экшена и фэнтези. Каждый наш проект - это результат кропотливой работы переводчиков, редакторов, звукорежиссеров и, конечно же, наших талантливых дабберов.</p>
+                    <br>
+                    <p>Наша миссия - дать русскоязычным зрителям возможность наслаждаться любимыми аниме с качественной озвучкой, сохраняющей атмосферу оригинала.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Рабочий процесс команды">
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Секция "Дабберы" -->
+    <section id="dubbers" class="section dubbers">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши дабберы</h2>
+            </div>
+            <div class="dubbers-grid" id="dubbersContainer">
+                <!-- Карточки дабберов будут вставлены с помощью JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "Вступить" -->
+    <section id="join" class="section join-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Присоединиться к команде</h2>
+            </div>
+            <div class="join-content">
+                <p>Мы всегда рады новым талантам! Если вы актер озвучки, звукорежиссер, переводчик или редактор, и хотите стать частью нашей команды, присылайте свои заявки!</p>
+                <p>Для актеров озвучки: приложите демо-запись с примерами разных эмоций и типов голоса.</p>
+                <button id="showFormBtn" class="btn btn-light">Отправить заявку</button>
+                
+                <!-- Форма для вступления -->
+                <div id="applicationForm" class="application-form">
+                    <h3>Форма для вступления</h3>
+                    <form id="joinForm">
+                        <div class="form-group">
+                            <label for="name">Ваше имя</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Желаемая роль</label>
+                            <select id="role" required>
+                                <option value="">Выберите роль</option>
+                                <option value="dubber">Актер озвучки</option>
+                                <option value="sound">Звукорежиссер</option>
+                                <option value="translator">Переводчик</option>
+                                <option value="editor">Редактор</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="experience">Опыт работы</label>
+                            <textarea id="experience" placeholder="Расскажите о вашем опыте в этой сфере"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="portfolio">Ссылка на портфолио или демо-запись</label>
+                            <input type="url" id="portfolio">
+                        </div>
+                        <button type="submit" class="btn">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <div class="logo" style="margin-bottom: 20px;">
-                        <div class="logo-icon">
-                            <i class="fas fa-microphone-alt"></i>
-                        </div>
-                        <div class="logo-text">VexeraDubbing</div>
-                    </div>
-                    <p>Профессиональная озвучка контента с 2018 года. Мы создаем качественный дубляж для видео, игр, рекламы и анимации.</p>
+                <div class="footer-section">
+                    <h3>О VexeraDubbing</h3>
+                    <p>Профессиональная команда озвучки аниме, создающая качественный контент для русскоязычной аудитории с 2018 года.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-envelope"></i> contact@vexeradub.ru</p>
+                    <p><i class="fas fa-phone"></i> +7 (999) 123-45-67</p>
                     <div class="social-links">
-                        <a href="#" class="social-icon"><i class="fab fa-vk"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
                     </div>
                 </div>
                 
-                <div class="footer-links">
-                    <h4>Наши проекты</h4>
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
                     <ul>
-                        <li><a href="#">Дубляж фильмов</a></li>
-                        <li><a href="#">Озвучка игр</a></li>
-                        <li><a href="#">Рекламные ролики</a></li>
-                        <li><a href="#">Аудиокниги</a></li>
-                        <li><a href="#">Обучающие видео</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Контакты</h4>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i> info@vexeradubbing.ru</li>
-                        <li><i class="fab fa-telegram"></i> @vexera_dubbing</li>
-                        <li><i class="fab fa-discord"></i> VexeraDubbing</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Москва, Россия</li>
+                        <li><a href="#">Главная</a></li>
+                        <li><a href="#about">О нас</a></li>
+                        <li><a href="#dubbers">Дабберы</a></li>
+                        <li><a href="#join">Вступить</a></li>
                     </ul>
                 </div>
             </div>
             
-            <div class="copyright">
+            <div class="footer-bottom">
                 <p>&copy; 2023 VexeraDubbing. Все права защищены.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Подключаем данные о дабберах -->
+    <script src="dubbers-data.js"></script>
+    <!-- Подключаем основной скрипт -->
     <script src="script.js"></script>
 </body>
-</html>
+    </html>
